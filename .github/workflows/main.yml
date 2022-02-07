@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-    paths:
+    paths-ignore:
       - README*
   pull_request:
 jobs:
