@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - README*
   pull_request:
 jobs:
   preview:
@@ -15,6 +17,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
     defaults:
       run:
@@ -29,7 +32,5 @@ jobs:
       - run: npm install
       - uses: pulumi/actions@v3
         with:
-          command: preview
+          command: up
           stack-name: dev
-        env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
