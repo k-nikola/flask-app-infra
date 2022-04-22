@@ -1,2 +1,5 @@
 config:
   azure-native:location: WestEurope
+  azure-ts-acs:appImage: "t0b9/flask-app-nikola"
+  azure-ts-acs:dbImage: "mysql:5.7"
+  azure-ts-acs:os: "linux"
