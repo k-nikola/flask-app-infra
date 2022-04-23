@@ -6,19 +6,19 @@ import * as storage from "@pulumi/azure-native/storage";
 let config = new pulumi.Config()
 
 // Create an Azure Resource Group
-const resourceGroup = new resources.ResourceGroup("nikolaAppRG");
+const resourceGroup = new resources.ResourceGroup(`${pulumi.getStack()}AppRG`);
 
 //Create storage account
-const storageAccount = new storage.StorageAccount("nikolaAci-sa", {
+const storageAccount = new storage.StorageAccount(`${pulumi.getStack()}AciSa`, {
     resourceGroupName: resourceGroup.name,
     location: resourceGroup.location,
-    accountName: "nikolastorageacc",
+    accountName: `${pulumi.getStack()}storageacc`,
     kind: "Storage",
     sku: {
         name: "Standard_LRS",
     },
     tags: {
-        environment: pulumi.StackReference.name
+        environment: pulumi.getStack()
     }
 })
 const storageAccountKeys = storage.listStorageAccountKeysOutput({
@@ -27,14 +27,14 @@ const storageAccountKeys = storage.listStorageAccountKeysOutput({
 })
 const storageAccountKey = storageAccountKeys.keys[0].value
 
-const fileShare = new storage.FileShare("nikolashare", {
+const fileShare = new storage.FileShare(`${pulumi.getStack()}share`, {
     accountName: storageAccount.name,
     resourceGroupName: resourceGroup.name,
     shareQuota: 50
 })
 
 // Create a new container group with 1 container in it, expose port 5000
-const containerGroup = new containerinstance.ContainerGroup("myCG", {
+const containerGroup = new containerinstance.ContainerGroup(`${pulumi.getStack()}CG`, {
     resourceGroupName: resourceGroup.name,
     osType: config.require("os"),
     containers: [{
@@ -52,7 +52,7 @@ const containerGroup = new containerinstance.ContainerGroup("myCG", {
         },
         {
             name: "MYSQL_DATABASE",
-            secureValue: "flask_nikola"
+            secureValue: process.env.MYSQL_ROOT_DATABASE
         },
         ],
         volumeMounts: [
@@ -62,6 +62,16 @@ const containerGroup = new containerinstance.ContainerGroup("myCG", {
                 mountPath: "/var/lib/mysql",
             }
         ],
+    }, {
+        name: "nginx-rproxy",
+        image: config.require("nginxImage"),
+        ports: [{ port: 80, protocol: "Tcp" }],
+        resources: {
+            requests: {
+                cpu: 0.5,
+                memoryInGB: 0.5,
+            }
+        },
     }, {
         name: "flask-app",
         image: config.require("appImage"),
@@ -85,7 +95,7 @@ const containerGroup = new containerinstance.ContainerGroup("myCG", {
     ],
     ipAddress: {
         ports: [{
-            port: 5000,
+            port: 80,
             protocol: "Tcp"
         }],
         type: "Public",
