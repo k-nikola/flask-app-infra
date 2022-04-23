@@ -8,8 +8,8 @@ on:
       - README*
   pull_request:
 jobs:
-  preview:
-    name: Preview
+  up:
+    name: Up we go
     runs-on: ubuntu-latest
     env:
       # Azure credentials
