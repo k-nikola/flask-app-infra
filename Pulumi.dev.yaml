@@ -1,14 +1,14 @@
 config:
   azure-native:location: WestEurope
-  azure-ts-acs:DB_URI:
-    secure: AAABAMeSPDFU+PpNldeeyP79+3+PuEs2OnnUQKakdDAvZO/TbUdqX0dmFgoDt9MplL79hE8ht7uKbnZbMjQE5lfaFb7S/JVrh0MpuHlSOFU=
-  azure-ts-acs:MYSQL_DATABASE:
-    secure: AAABAFaiOrVSMFPuDYUEA3dBK+sEf1uyeL+AAko/pyPx90dkC44Bu20jbzE=
-  azure-ts-acs:MYSQL_ROOT_PASSWORD:
-    secure: AAABAIUPF6tRzcl6P760LPBa7bC9qTnegeEEFhX1QORID1rImJe8
-  azure-ts-acs:SECRET_KEY:
-    secure: AAABAGNxblWjz0cY5ccgKao0GiJDCYpQupm4QymWxv7hix9tookHhpN32+LX/1J7QvzKcLuc4Q==
-  azure-ts-acs:appImage: t0b9/flask-app-nikola
-  azure-ts-acs:dbImage: mysql:5.7
-  azure-ts-acs:nginxImage: t0b9/nginx-rproxy:1.0
-  azure-ts-acs:os: linux
+  kninfra:DB_URI:
+    secure: AAABAKYSY24tS56ulYT7y+2nGqP0qGOJ+ZJCRGwqnoq5U1jNb7SYWEBQm2abe0BEJEi3jbBMv7Demt9QANkyayHMVKiqFvcOzk1wpbiolS0=
+  kninfra:MYSQL_DATABASE:
+    secure: AAABAIuGDTWwbSAIo6wBYjcsaOYIrLC0L3/LhQIDnPVEL0HWx/SUNQQPqIs=
+  kninfra:MYSQL_ROOT_PASSWORD:
+    secure: AAABAL6ZKqkFW8/zAvDBv6Mt1KRrN4sLHaf24g7yeBPS2Yj5cb2z
+  kninfra:SECRET_KEY:
+    secure: AAABAEHjxzs2E2Ovkryuq9/5apQEgd246VhnZ31MQ0WMIbkx2T2fZ7T9BKpShdkc+xvQ++7viA==
+  kninfra:appImage: t0b9/flask-app-nikola
+  kninfra:dbImage: mysql:5.7
+  kninfra:nginxImage: t0b9/nginx-rproxy:1.0
+  kninfra:os: linux
