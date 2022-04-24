@@ -20,12 +20,6 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       # Access token to Pulumi state
       PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-      # Values needed for web app
-      DB_URI: ${{ secrets.DB_URI }}
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      # Values needed for DB
-      MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
     defaults:
       run:
         shell: bash

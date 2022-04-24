@@ -48,11 +48,11 @@ const containerGroup = new containerinstance.ContainerGroup(`${pulumi.getStack()
         },
         environmentVariables: [{
             name: "MYSQL_ROOT_PASSWORD",
-            secureValue: process.env.MYSQL_ROOT_PASSWORD
+            secureValue: config.require("MYSQL_ROOT_PASSWORD")
         },
         {
             name: "MYSQL_DATABASE",
-            secureValue: process.env.MYSQL_ROOT_DATABASE
+            secureValue: config.require("MYSQL_ROOT_DATABASE")
         },
         ],
         volumeMounts: [
@@ -84,11 +84,11 @@ const containerGroup = new containerinstance.ContainerGroup(`${pulumi.getStack()
         },
         environmentVariables: [{
             name: "db_uri",
-            secureValue: process.env.DB_URI
+            secureValue: config.require("DB_URI")
         },
         {
             name: "secret_key",
-            secureValue: process.env.SECRET_KEY
+            secureValue: config.require("SECRET_KEY")
         }
         ],
     }
