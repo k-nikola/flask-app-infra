@@ -1,14 +1,29 @@
 config:
   azure-native:location: WestEurope
-  kninfra:DB_URI:
-    secure: AAABAKYSY24tS56ulYT7y+2nGqP0qGOJ+ZJCRGwqnoq5U1jNb7SYWEBQm2abe0BEJEi3jbBMv7Demt9QANkyayHMVKiqFvcOzk1wpbiolS0=
-  kninfra:MYSQL_DATABASE:
-    secure: AAABAIuGDTWwbSAIo6wBYjcsaOYIrLC0L3/LhQIDnPVEL0HWx/SUNQQPqIs=
-  kninfra:MYSQL_ROOT_PASSWORD:
-    secure: AAABAL6ZKqkFW8/zAvDBv6Mt1KRrN4sLHaf24g7yeBPS2Yj5cb2z
-  kninfra:SECRET_KEY:
-    secure: AAABAEHjxzs2E2Ovkryuq9/5apQEgd246VhnZ31MQ0WMIbkx2T2fZ7T9BKpShdkc+xvQ++7viA==
-  kninfra:appImage: t0b9/flask-app-nikola
-  kninfra:dbImage: mysql:5.7
-  kninfra:nginxImage: t0b9/nginx-rproxy:1.0
   kninfra:os: linux
+  kninfra:services:
+    flaskapp:
+      image: t0b9/flask-app-nikola
+      vars:
+        DB_URI:
+          secure: AAABAKYSY24tS56ulYT7y+2nGqP0qGOJ+ZJCRGwqnoq5U1jNb7SYWEBQm2abe0BEJEi3jbBMv7Demt9QANkyayHMVKiqFvcOzk1wpbiolS0=
+        SECRET_KEY:
+          secure: AAABAEHjxzs2E2Ovkryuq9/5apQEgd246VhnZ31MQ0WMIbkx2T2fZ7T9BKpShdkc+xvQ++7viA==
+      specs:
+        cpu: 0.5
+        mem: 0.5
+    db:
+      image: mysql:5.7
+      vars:
+        MYSQL_ROOT_PASSWORD:
+          secure: AAABAL6ZKqkFW8/zAvDBv6Mt1KRrN4sLHaf24g7yeBPS2Yj5cb2z
+        MYSQL_DATABASE:
+          secure: AAABAIuGDTWwbSAIo6wBYjcsaOYIrLC0L3/LhQIDnPVEL0HWx/SUNQQPqIs=
+      specs:
+        cpu: 0.5
+        mem: 0.5
+    nginx:
+      image: t0b9/nginx-rproxy:1.0
+      specs:
+        cpu: 0.5
+        mem: 0.5
