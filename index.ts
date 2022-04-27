@@ -36,7 +36,7 @@ const fileShare = new storage.FileShare(`${projectName}-${stackName}share`, {
 })
 
 
-interface services {
+interface serviceConfig {
     [serviceName: string]: {
         image: string;
         specs: {
@@ -49,26 +49,28 @@ interface services {
     };
 }
 
+const stackConfiguration = config.requireObject<serviceConfig>("services")
+
 // Create a new container group with 1 container in it, expose port 80
 const containerGroup = new containerinstance.ContainerGroup(`${projectName}${stackName}CG`, {
     resourceGroupName: resourceGroup.name,
     osType: config.require("os"),
     containers: [{
         name: "db",
-        image: config.requireObject<services>("services").db.image,
+        image: stackConfiguration.db.image,
         resources: {
             requests: {
-                cpu: config.requireObject<services>("services").db.specs.cpu,
-                memoryInGB: config.requireObject<services>("services").db.specs.mem,
+                cpu: stackConfiguration.db.specs.cpu,
+                memoryInGB: stackConfiguration.db.specs.mem,
             }
         },
         environmentVariables: [{
             name: "MYSQL_ROOT_PASSWORD",
-            secureValue: config.requireObject<services>("services").db.vars.MYSQL_ROOT_PASSWORD
+            secureValue: stackConfiguration.db.vars.MYSQL_ROOT_PASSWORD
         },
         {
             name: "MYSQL_DATABASE",
-            secureValue: config.requireObject<services>("services").db.vars.MYSQL_DATABASE
+            secureValue: stackConfiguration.db.vars.MYSQL_DATABASE
         },
         ],
         volumeMounts: [
@@ -80,30 +82,30 @@ const containerGroup = new containerinstance.ContainerGroup(`${projectName}${sta
         ],
     }, {
         name: "nginx-rproxy",
-        image: config.requireObject<services>("services").nginx.image,
+        image: stackConfiguration.nginx.image,
         ports: [{ port: 80, protocol: "Tcp" }],
         resources: {
             requests: {
-                cpu: config.requireObject<services>("services").nginx.specs.cpu,
-                memoryInGB: config.requireObject<services>("services").nginx.specs.mem,
+                cpu: stackConfiguration.nginx.specs.cpu,
+                memoryInGB: stackConfiguration.nginx.specs.mem,
             }
         },
     }, {
         name: "flaskapp",
-        image: config.requireObject<services>("services").flaskapp.image,
+        image: stackConfiguration.flaskapp.image,
         resources: {
             requests: {
-                cpu: config.requireObject<services>("services").flaskapp.specs.cpu,
-                memoryInGB: config.requireObject<services>("services").flaskapp.specs.mem,
+                cpu: stackConfiguration.flaskapp.specs.cpu,
+                memoryInGB: stackConfiguration.flaskapp.specs.mem,
             }
         },
         environmentVariables: [{
             name: "db_uri",
-            secureValue: config.requireObject<services>("services").flaskapp.vars.DB_URI
+            secureValue: stackConfiguration.flaskapp.vars.DB_URI
         },
         {
             name: "secret_key",
-            secureValue: config.requireObject<services>("services").flaskapp.vars.SECRET_KEY
+            secureValue: stackConfiguration.flaskapp.vars.SECRET_KEY
         }
         ],
     }
