@@ -68,7 +68,7 @@ const containerGroup = new containerinstance.ContainerGroup(`${projectName}${sta
         },
         {
             name: "MYSQL_DATABASE",
-            secureValue: config.requireObject<services>("services").db.vars.MYSQL_ROOT_DATABASE
+            secureValue: config.requireObject<services>("services").db.vars.MYSQL_DATABASE
         },
         ],
         volumeMounts: [
