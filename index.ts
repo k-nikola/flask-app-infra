@@ -2,19 +2,20 @@ import * as pulumi from "@pulumi/pulumi";
 import * as resources from "@pulumi/azure-native/resources";
 import * as containerinstance from "@pulumi/azure-native/containerinstance";
 import * as storage from "@pulumi/azure-native/storage";
+import { config, stackServices } from "./config-loader"
 
-let config = new pulumi.Config()
+// Project and stack name
 let projectName = pulumi.getProject()
 let stackName = pulumi.getStack()
 
 // Create an Azure Resource Group
-const resourceGroup = new resources.ResourceGroup(`${projectName}-${stackName}RG`);
+const resourceGroup = new resources.ResourceGroup(`${projectName}-${stackName}-rg`);
 
-//Create storage account
-const storageAccount = new storage.StorageAccount(`${projectName}-${stackName}AciSa`, {
+//Create a storage account
+const storageAccount = new storage.StorageAccount(`${projectName}-${stackName}-sa`, {
     resourceGroupName: resourceGroup.name,
     location: resourceGroup.location,
-    accountName: `${projectName}${stackName}storageacc`,
+    accountName: `${projectName}${stackName}sa`,
     kind: "Storage",
     sku: {
         name: "Standard_LRS",
@@ -23,54 +24,41 @@ const storageAccount = new storage.StorageAccount(`${projectName}-${stackName}Ac
         environment: stackName
     }
 })
+
+// Storage account keys needed for creating volumes
 const storageAccountKeys = storage.listStorageAccountKeysOutput({
     accountName: storageAccount.name,
     resourceGroupName: resourceGroup.name
 })
 const storageAccountKey = storageAccountKeys.keys[0].value
 
-const fileShare = new storage.FileShare(`${projectName}-${stackName}share`, {
+// File share to be used as a volume
+const fileShare = new storage.FileShare(`${projectName}-${stackName}-share`, {
     accountName: storageAccount.name,
     resourceGroupName: resourceGroup.name,
     shareQuota: 50
 })
 
-
-interface serviceConfig {
-    [serviceName: string]: {
-        image: string;
-        specs: {
-            cpu: number;
-            mem: number;
-        };
-        vars: {
-            [varName: string]: string
-        };
-    };
-}
-
-const stackConfiguration = config.requireObject<serviceConfig>("services")
-
-// Create a new container group with 1 container in it, expose port 80
-const containerGroup = new containerinstance.ContainerGroup(`${projectName}${stackName}CG`, {
+// Create a new container group with all the services in it. Expose port 80 where nginx is listening on.
+const containerGroup = new containerinstance.ContainerGroup(`${projectName}-${stackName}-cg`, {
     resourceGroupName: resourceGroup.name,
     osType: config.require("os"),
     containers: [{
         name: "db",
-        image: stackConfiguration.db.image,
+        image: stackServices.db.image,
         resources: {
             requests: {
-                cpu: stackConfiguration.db.specs.cpu,
-                memoryInGB: stackConfiguration.db.specs.mem,
+                cpu: stackServices.db.specs.cpu,
+                memoryInGB: stackServices.db.specs.mem,
             }
         },
         environmentVariables: [{
             name: "MYSQL_ROOT_PASSWORD",
-            secureValue: stackConfiguration.db.vars.MYSQL_ROOT_PASSWORD
+            secureValue: stackServices.db.vars.MYSQL_ROOT_PASSWORD
         },
         {
             name: "MYSQL_DATABASE",
-            secureValue: stackConfiguration.db.vars.MYSQL_DATABASE
+            secureValue: stackServices.db.vars.MYSQL_DATABASE
         },
         ],
         volumeMounts: [
@@ -82,30 +70,30 @@ const containerGroup = new containerinstance.ContainerGroup(`${projectName}${sta
         ],
     }, {
         name: "nginx-rproxy",
-        image: stackConfiguration.nginx.image,
+        image: stackServices.nginx.image,
         ports: [{ port: 80, protocol: "Tcp" }],
         resources: {
             requests: {
-                cpu: stackConfiguration.nginx.specs.cpu,
-                memoryInGB: stackConfiguration.nginx.specs.mem,
+                cpu: stackServices.nginx.specs.cpu,
+                memoryInGB: stackServices.nginx.specs.mem,
             }
         },
     }, {
         name: "flaskapp",
-        image: stackConfiguration.flaskapp.image,
+        image: stackServices.flaskapp.image,
         resources: {
             requests: {
-                cpu: stackConfiguration.flaskapp.specs.cpu,
-                memoryInGB: stackConfiguration.flaskapp.specs.mem,
+                cpu: stackServices.flaskapp.specs.cpu,
+                memoryInGB: stackServices.flaskapp.specs.mem,
             }
         },
         environmentVariables: [{
             name: "db_uri",
-            secureValue: stackConfiguration.flaskapp.vars.DB_URI
+            secureValue: stackServices.flaskapp.vars.DB_URI
         },
         {
             name: "secret_key",
-            secureValue: stackConfiguration.flaskapp.vars.SECRET_KEY
+            secureValue: stackServices.flaskapp.vars.SECRET_KEY
         }
         ],
     }
@@ -129,4 +117,6 @@ const containerGroup = new containerinstance.ContainerGroup(`${projectName}${sta
     ],
     restartPolicy: "always",
 });
+
+// Public IP address of the container group. Can be accessed through HTTP.
 export const containerIPv4address = containerGroup.ipAddress.apply(ip => ip?.ip);
