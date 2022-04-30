@@ -13,6 +13,9 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.ts"
+        "index.ts",
+        "./app/app-group.ts",
+        "./app/app-storage.ts",
+        "./global/config-loader.ts"
     ]
 }
