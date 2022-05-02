@@ -35,3 +35,11 @@ jobs:
         with:
           command: up
           stack-name: dev
+      - uses: pulumi/actions@v3
+        with:
+          command: up
+          stack-name: stage
+      - uses: pulumi/actions@v3
+        with:
+          command: up
+          stack-name: prod
