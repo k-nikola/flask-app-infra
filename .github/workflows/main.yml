@@ -37,9 +37,9 @@ jobs:
           stack-name: dev
       - uses: pulumi/actions@v3
         with:
-          command: up
+          command: preview
           stack-name: stage
       - uses: pulumi/actions@v3
         with:
-          command: up
+          command: preview
           stack-name: prod
