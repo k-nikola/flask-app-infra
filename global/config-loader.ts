@@ -11,6 +11,7 @@ export interface serviceConfig {
         vars: {
             [varName: string]: string
         };
+        opts?: any;
     };
 }
 
