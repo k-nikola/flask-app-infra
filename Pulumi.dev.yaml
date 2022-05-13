@@ -1,7 +1,7 @@
 config:
   azure-native:location: WestEurope
   kninfra:os: linux
-  kninfra:services:
+  kninfra:stackServices:
     db:
       image: mysql:5.7
       specs:
