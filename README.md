@@ -28,9 +28,8 @@ To be able to deploy to Azure, logging in via az cli is required \
 
 ### Up we go
 
-Spinning up the app from here on is quite simple \
-`❯ pulumi up -ef -s dev` \
-Using a command like this one will spin up a dev stack on Azure.
+Spinning up the app from here on is quite simple. \
+Using a command like pulumi up one will spin up a dev stack on Azure.
 Example output: \
 ![pulumiupoutput](https://user-images.githubusercontent.com/81910142/177002794-f68592f0-56ac-4a69-bd26-50b961a8d39c.JPG)
 
@@ -42,8 +41,6 @@ Following the public IP from the outputs of the pulumi up command should route t
 
 ### Down we go
 
-Tearing down the stack is pretty straight-forward as well. \
-`❯ pulumi down -ef -s dev` \
+Tearing down the stack with pulumi down is pretty straight-forward as well. \
 Example output: \
 ![pulumidownoutput](https://user-images.githubusercontent.com/81910142/177002826-89180e7b-0dcc-4c1f-8b13-f98723370ee0.JPG)
-
