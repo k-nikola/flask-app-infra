@@ -13,13 +13,13 @@ v3.35.3`
 ### Description:
 
 This repository is a monolithic infrastructure as code solution via Pulumi for the mentioned flask app. Each Pulumi stack includes all of the infrastructure components needed to host the app in the cloud. \
-Cloud provider of choice is Azure, and the resource of choic is container-group. \
+Cloud provider of choice is Azure, and the resource of choice is container-group. \
 Container group will host an instance of the app, and an instance of mysql database. This container group is located in an Azure Resource group, that also includes a File share. This file share will be used as a volume for mysql database container.\
 All of the state management is handled by Pulumi Service Backend.
 
 ### Setting up
 
-On the first time run, a project needs to be created \
+On the first time run, a Pulumi project needs to be created \
 `❯ pulumi new azure-typescript`\
 To set up state management via Pulumi Service Backend, login is required \
 `❯ pulumi login` \
@@ -29,7 +29,7 @@ To be able to deploy to Azure, logging in via az cli is required \
 ### Up we go
 
 Spinning up the app from here on is quite simple. \
-Using a command like pulumi up one will spin up a dev stack on Azure.
+Using a command like pulumi up, while specifying a certain stack as an attribute will spin up that stack on Azure.
 Example output: \
 ![pulumiupoutput](https://user-images.githubusercontent.com/81910142/177002794-f68592f0-56ac-4a69-bd26-50b961a8d39c.JPG)
 
