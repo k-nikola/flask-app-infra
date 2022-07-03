@@ -1,7 +1,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as containerinstance from "@pulumi/azure-native/containerinstance";
 import * as resources from "@pulumi/azure-native/resources";
-import { config, stackServices } from "../global/config-loader";
+import { config, stackServices } from "../base/config-loader";
 import { appStorage } from "./app-storage"
 
 // ComponentResource that creates a Container group with all the dependencies.

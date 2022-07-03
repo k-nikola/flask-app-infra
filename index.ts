@@ -1,15 +1,15 @@
 import * as pulumi from "@pulumi/pulumi";
 import { appStorage } from "./app/app-storage";
 import { appGroup } from "./app/app-group";
-import { appGlobalResources } from "./global/global";
+import { appBaseResources } from "./base/base";
 
 // Project and stack name.
 export let projectName = pulumi.getProject()
 export let stackName = pulumi.getStack()
 
-// Create global resources - Resource Group.
-const stackGlobalResources = new appGlobalResources(projectName, stackName)
-const stackResourceGroup = stackGlobalResources.stackResourceGroup
+// Create base resources - Resource Group.
+const stackBaseResources = new appBaseResources(projectName, stackName)
+const stackResourceGroup = stackBaseResources.stackResourceGroup
 
 // Create storage for the app group.
 const stackStorage = new appStorage(projectName, stackName, stackResourceGroup)
