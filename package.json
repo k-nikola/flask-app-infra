@@ -1,11 +1,11 @@
 {
-    "name": "azure-ts-tutorial",
-    "devDependencies": {
-        "@types/node": "^14"
-    },
-    "dependencies": {
-        "@pulumi/azure-native": "^1.0.0",
-        "@pulumi/pulumi": "^3.0.0",
-        "eslint": "^8.13.0"
-    }
+  "name": "azure-ts-tutorial",
+  "devDependencies": {
+    "@types/node": "^14"
+  },
+  "dependencies": {
+    "@pulumi/azure-native": "^1.0.0",
+    "@pulumi/pulumi": "^3.0.0",
+    "eslint": "^8.13.0"
+  }
 }

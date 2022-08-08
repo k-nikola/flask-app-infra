@@ -4,12 +4,10 @@
 
 ### Prerequisities:
 
-`❯ node -v
-v16.13.2` \
-`❯ npm -v
-8.1.2` \
-`❯ pulumi version
-v3.35.3`
+`❯ node -v v16.13.2` \
+`❯ npm -v 8.1.2` \
+`❯ pulumi version v3.35.3`
+
 ### Description:
 
 This repository is a monolithic infrastructure as code solution via Pulumi for the mentioned flask app. Each Pulumi stack includes all of the infrastructure components needed to host the app in the cloud. \
@@ -33,11 +31,9 @@ Using a command like pulumi up, while specifying a certain stack as an attribute
 Example output: \
 ![pulumiupoutput](https://user-images.githubusercontent.com/81910142/177002794-f68592f0-56ac-4a69-bd26-50b961a8d39c.JPG)
 
-
 Following the public IP from the outputs of the pulumi up command should route to the flask app running in the container group in Azure:
 
 ![site on az](https://user-images.githubusercontent.com/81910142/177002791-a00a6d31-0963-403f-9656-05b82213a449.JPG)
-
 
 ### Down we go
 

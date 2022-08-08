@@ -1,7 +1,7 @@
-import * as pulumi from "@pulumi/pulumi";
-import { appStorage } from "./app/app-storage";
-import { appGroup } from "./app/app-group";
-import { appBaseResources } from "./base/base";
+import * as pulumi from '@pulumi/pulumi'
+import { appStorage } from './app/app-storage'
+import { appGroup } from './app/app-group'
+import { appBaseResources } from './base/base'
 
 // Project and stack name.
 export let projectName = pulumi.getProject()
@@ -15,7 +15,12 @@ const stackResourceGroup = stackBaseResources.stackResourceGroup
 const stackStorage = new appStorage(projectName, stackName, stackResourceGroup)
 
 // Create app group, and mount stack storage.
-const stackAppGroup = new appGroup(projectName, stackName, stackResourceGroup, stackStorage)
+const stackAppGroup = new appGroup(
+  projectName,
+  stackName,
+  stackResourceGroup,
+  stackStorage
+)
 
 // Export the public IP address of the group.
 export const publicIp = stackAppGroup.publicIp
