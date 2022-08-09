@@ -9,7 +9,7 @@ export class appBaseResources extends pulumi.ComponentResource {
     stackName: string,
     opts?: pulumi.ComponentResourceOptions
   ) {
-    super('kninfra-BaseResources', 'kninfra-base')
+    super(`${projectName}-BaseResources`, `${projectName}-base`)
     this.stackResourceGroup = new resources.ResourceGroup(
       `${projectName}-${stackName}-rg`
     )

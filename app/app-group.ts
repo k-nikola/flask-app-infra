@@ -12,9 +12,9 @@ export class appGroup extends pulumi.ComponentResource {
     stackName: string,
     stackResourceGroup: resources.ResourceGroup,
     stackStorage: appStorage,
-    opts?: string
+    opts?: pulumi.ComponentResourceOptions
   ) {
-    super('kninfra-Group', `${projectName}-cg`)
+    super(`${projectName}-Group`, `${projectName}-cg`)
     // This application container group with flask web app, db, and nginx reverse proxy. It has public IP and exposed port 80
     this.containerGroup = new containerinstance.ContainerGroup(
       `${projectName}-${stackName}-cg`,
@@ -105,9 +105,7 @@ export class appGroup extends pulumi.ComponentResource {
     )
   }
 
-  /*
-   * Public IP address of the container group. Can be accessed through HTTP.
-   */
+  // Public IP address of the container group. Can be accessed through HTTP.
   get publicIp() {
     return this.containerGroup.ipAddress.apply((ip) => ip?.ip)
   }

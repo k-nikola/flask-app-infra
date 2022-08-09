@@ -13,7 +13,7 @@ export class appStorage extends pulumi.ComponentResource {
     stackResourceGroup: resources.ResourceGroup,
     opts?: pulumi.ComponentResourceOptions
   ) {
-    super('kninfra-Storage', `${projectName}-storage`)
+    super(`${projectName}-Storage`, `${projectName}-storage`)
     //Create a storage account
     this.Account = new storage.StorageAccount(
       `${projectName}-${stackName}-sa`,
