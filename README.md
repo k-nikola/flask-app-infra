@@ -1,3 +1,10 @@
+![ts](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=azure-devops&logoColor=white)
+![GHA](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
+![Pulumi](https://camo.githubusercontent.com/0c96b8b66a7838d0dc0732c51c1653fe0da51f46d8e704e1bf197b63d25d5f46/68747470733a2f2f696d672e736869656c64732e696f2f7374617469632f76313f7374796c653d666f722d7468652d6261646765266d6573736167653d50756c756d6926636f6c6f723d384133333931266c6f676f3d50756c756d69266c6f676f436f6c6f723d464646464646266c6162656c3d)
+![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
+![Pretteir](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
 # Infrastructure repository for my flask application
 
 ## Flask app repo - https://github.com/k-nikola/flask-app-nikola
