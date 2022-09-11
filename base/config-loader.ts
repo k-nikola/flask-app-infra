@@ -1,20 +1,18 @@
 import * as pulumi from '@pulumi/pulumi'
 
 // Service configuration structure
-export interface serviceConfig {
-  image: string
-  specs: {
-    cpu: number
-    mem: number
-  }
-  vars: {
-    [varName: string]: string
-  }
-  opts?: any
-}
-
 export interface stackServicesConfig {
-  [serviceName: string]: serviceConfig
+  [serviceName: string]: {
+    image: string
+    specs: {
+      cpu: number
+      mem: number
+    }
+    vars: {
+      [varName: string]: string
+    }
+    opts?: any
+  }
 }
 
 // Object of configLoader class can be used to load the configuration of the stack, and to load hierarchical service configuration.
