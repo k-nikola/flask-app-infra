@@ -36,6 +36,7 @@ jobs:
         with:
           command: up
           stack-name: dev
+      - name: Stack outputs
       - run: |
           echo "${{ steps.devup.outputs.projectName }} ${{ steps.devup.outputs.stackName }} available at ${{ steps.devup.outputs.publicIp }}"
       - uses: pulumi/actions@v3
