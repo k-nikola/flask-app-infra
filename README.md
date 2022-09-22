@@ -8,7 +8,8 @@
 # Infrastructure repository for my flask application
 
 ## Flask app repo - https://github.com/k-nikola/flask-app-nikola
-
+## Architecture diagram
+![Flask-app-architecture (4)](https://user-images.githubusercontent.com/81910142/191688578-e608b37e-d4a0-438d-801c-dc6a694c4bfc.png)
 ### Prerequisities:
 
 `❯ node -v v16.13.2` \
