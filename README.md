@@ -8,8 +8,7 @@
 # Infrastructure repository for my flask application
 
 ## Flask app repo - https://github.com/k-nikola/flask-app-nikola
-## Architecture diagram
-![Flask-app-architecture (4)](https://user-images.githubusercontent.com/81910142/191688578-e608b37e-d4a0-438d-801c-dc6a694c4bfc.png)
+
 ### Prerequisities:
 
 `❯ node -v v16.13.2` \
@@ -22,7 +21,8 @@ This repository is a monolithic infrastructure as code solution via Pulumi for t
 Cloud provider of choice is Azure, and the resource of choice is container-group. \
 Container group will host an instance of the app, and an instance of mysql database. This container group is located in an Azure Resource group, that also includes a File share. This file share will be used as a volume for mysql database container.\
 All of the state management is handled by Pulumi Service Backend.
-
+### Architecture diagram
+![Flask-app-architecture (4)](https://user-images.githubusercontent.com/81910142/191688578-e608b37e-d4a0-438d-801c-dc6a694c4bfc.png)
 ### Setting up
 
 On the first time run, a Pulumi project needs to be created \
