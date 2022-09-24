@@ -67,7 +67,7 @@ export class appGroup extends pulumi.ComponentResource {
           },
           {
             name: 'flaskapp',
-            image: stackServices.flaskapp.image,
+            image: flaskappImage,
             resources: {
               requests: {
                 cpu: stackServices.flaskapp.specs.cpu,
