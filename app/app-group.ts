@@ -15,8 +15,8 @@ export class appGroup extends pulumi.ComponentResource {
     opts?: pulumi.ComponentResourceOptions
   ) {
     super(`${projectName}-Group`, `${projectName}-cg`)
-    // Image of the app will be lts unless specified
-    let flaskappImage = stackServices.flaskapp.image
+    // Image of the app will be latest unless specified
+    let flaskappImage = `${stackServices.flaskapp.image}:latest`
     if (process.env.APP_VERSION) {
       flaskappImage = flaskappImage + `:${process.env.APP_VERSION}`
     }
@@ -67,7 +67,7 @@ export class appGroup extends pulumi.ComponentResource {
           },
           {
             name: 'flaskapp',
-            image: flaskappImage,
+            image: stackServices.flaskapp.image,
             resources: {
               requests: {
                 cpu: stackServices.flaskapp.specs.cpu,

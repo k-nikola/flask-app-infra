@@ -4,7 +4,7 @@ on:
   repository_dispatch:
     types: [new-build]
 jobs:
-  up_up_up:
+  deploy_new_version:
     runs-on: ubuntu-latest
     env:
       # Azure credentials
@@ -15,6 +15,7 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       # Access token to Pulumi state
       PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+      # New application version
       APP_VERSION: ${{ github.event.client_payload.app_ver }}
     steps:
       - uses: actions/checkout@v2
