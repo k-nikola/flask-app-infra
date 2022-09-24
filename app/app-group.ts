@@ -18,7 +18,7 @@ export class appGroup extends pulumi.ComponentResource {
     // Image of the app will be latest unless specified
     let flaskappImage = `${stackServices.flaskapp.image}:latest`
     if (process.env.APP_VERSION) {
-      flaskappImage = flaskappImage + `:${process.env.APP_VERSION}`
+      flaskappImage = `${stackServices.flaskapp.image}:${process.env.APP_VERSION}`
     }
     // This application container group with flask web app, db, and nginx reverse proxy. It has public IP and exposed port 80
     this.containerGroup = new containerinstance.ContainerGroup(
