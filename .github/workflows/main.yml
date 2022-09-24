@@ -6,7 +6,7 @@ on:
       - main
     paths-ignore:
       - README*
-  pull_request:
+      - .github/workflows/repo-dispatch
 jobs:
   up:
     name: Up we go

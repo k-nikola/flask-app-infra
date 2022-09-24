@@ -18,16 +18,16 @@ jobs:
       APP_VERSION: ${{ github.event.client_payload.app_ver }}
     steps:
       - uses: actions/checkout@v2
-      - run: echo $APP_VERSION ${{ github.event.client_payload.app_ver }} ${{ APP_VERSION }}
-      # - uses: actions/setup-node@v2
-      #   with:
-      #     node-version: 14.x
-      # - run: npm install
-      # - uses: pulumi/actions@v3
-      #   id: devup
-      #   with:
-      #     command: up
-      #     stack-name: dev
-      # - name: Stack outputs
-      #   run: |
-      #     echo "${{ steps.devup.outputs.projectName }} ${{ steps.devup.outputs.stackName }} available at ${{ steps.devup.outputs.publicIp }}"
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - run: npm install
+      - uses: pulumi/actions@v3
+        id: devup
+        with:
+          command: up
+          stack-name: dev
+          # version: 3.37.2
+      - name: Stack outputs
+        run: |
+          echo "${{ steps.devup.outputs.projectName }} ${{ steps.devup.outputs.stackName }} available at ${{ steps.devup.outputs.publicIp }}"
