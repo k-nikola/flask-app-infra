@@ -1,0 +1,33 @@
+---
+name: Repository Dispatch
+on:
+  repository_dispatch:
+    types: [new-build]
+jobs:
+  up_up_up:
+    runs-on: ubuntu-latest
+    env:
+      # Azure credentials
+      ARM_USE_MSI: true
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      # Access token to Pulumi state
+      PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+      APP_VERSION: ${{ github.event.client_payload.app_ver }}
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo $APP_VERSION ${{ github.event.client_payload.app_ver }} ${{ APP_VER }}
+      # - uses: actions/setup-node@v2
+      #   with:
+      #     node-version: 14.x
+      # - run: npm install
+      # - uses: pulumi/actions@v3
+      #   id: devup
+      #   with:
+      #     command: up
+      #     stack-name: dev
+      # - name: Stack outputs
+      #   run: |
+      #     echo "${{ steps.devup.outputs.projectName }} ${{ steps.devup.outputs.stackName }} available at ${{ steps.devup.outputs.publicIp }}"

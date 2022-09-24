@@ -15,6 +15,11 @@ export class appGroup extends pulumi.ComponentResource {
     opts?: pulumi.ComponentResourceOptions
   ) {
     super(`${projectName}-Group`, `${projectName}-cg`)
+    // Image of the app will be lts unless specified
+    let flaskappImage = stackServices.flaskapp.image
+    if (process.env.APP_VERSION) {
+      flaskappImage = flaskappImage + `:${process.env.APP_VERSION}`
+    }
     // This application container group with flask web app, db, and nginx reverse proxy. It has public IP and exposed port 80
     this.containerGroup = new containerinstance.ContainerGroup(
       `${projectName}-${stackName}-cg`,
@@ -62,7 +67,7 @@ export class appGroup extends pulumi.ComponentResource {
           },
           {
             name: 'flaskapp',
-            image: stackServices.flaskapp.image,
+            image: flaskappImage,
             resources: {
               requests: {
                 cpu: stackServices.flaskapp.specs.cpu,
