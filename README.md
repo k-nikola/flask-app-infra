@@ -22,7 +22,7 @@ Cloud provider of choice is Azure, and the resource of choice is container-group
 Container group will host an instance of the app, and an instance of mysql database. This container group is located in an Azure Resource group, that also includes a File share. This file share will be used as a volume for mysql database container.\
 All of the state management is handled by Pulumi Service Backend.
 ### Architecture diagram
-![Flask-app-architecture (6)](https://user-images.githubusercontent.com/81910142/191690579-5d920a67-9969-4862-b973-c82337f9f310.png)
+![Flask-app-architecture (8)](https://user-images.githubusercontent.com/81910142/192138852-2eb35d96-538c-4779-af37-95586787a781.png)
 ### Setting up
 
 On the first time run, a Pulumi project needs to be created \
